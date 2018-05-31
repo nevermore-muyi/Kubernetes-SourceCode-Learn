@@ -26,7 +26,7 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 然后安装helm服务端tiller 
 
 ```
-helm init -i registry-internal.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1
+helm init -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1
 PS：由于默认的init会从gcr.io下载镜像，网络会有问题，所以使用-i命令指定镜像地址安装，安装需保证服务端和客户端地址版本相同。可通过helm version查看版本信息,这里使用的是2.9.1的版本和阿里云的镜像地址。
 ```
 
