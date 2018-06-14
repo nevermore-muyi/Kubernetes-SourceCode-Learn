@@ -11,7 +11,7 @@ Kubernetes自身对资源的分配都是使用的绝对值，实现起来非常�
 ##### 2.1 先决条件
 
 ```
-1. Kubernetes对namespace控制主要使用ResourceQuota，所以apiserver启动时必须指定好 --enable-admission-plugins=ResourceQuota；
+Kubernetes对namespace控制主要使用ResourceQuota，所以apiserver启动时必须指定好 --enable-admission-plugins=ResourceQuota；
 ```
 
 ##### 2.2 使用步骤
