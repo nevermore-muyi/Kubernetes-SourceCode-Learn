@@ -25,6 +25,30 @@ ziplist：列表
 hashtable：哈希表
 hash类型使用场景： 用户属性等信息，和关系型数据库匹配
 
+3.list（一对多，有顺序的）
+list内部编码有两种：
+ziplist（个数或者值比较小）
+linkedlist
+list使用场景： 消息队列、列表等
 
+4.set（一对多，无序的，不能重复）
+set内部编码有两种：
+intset： 整数集合
+hashtable： 哈希表
+set使用场景: 微博类似的标签、社交
+
+5.zset
+zset内部编码有两种：
+ziplist
+skiplist： 跳跃表
+zset使用场景： 排行榜之类的，有特定排序规律的
+```
+
+#### 遍历键
+
+```
+Redis遍历键有两种方式：
+1、keys：全量遍历键，会阻塞
+2、scan：渐进式遍历，需要多次遍历完成，类似的，hgetall、smembers、zrange都会阻塞，相应的有hscan、sscan、zscan等命令替代。
 ```
 
