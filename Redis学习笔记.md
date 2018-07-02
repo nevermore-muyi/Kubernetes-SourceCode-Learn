@@ -62,7 +62,7 @@ Redis执行命令过程：
 #### Redis-Shell
 
 ```
-redis-cli --slave命令，可以用来监视其他操作。
+redis-cli --slave命令，可以用来监视其他操作，类似于monitor命令。
 ```
 
 #### Pipeline
@@ -84,3 +84,13 @@ redis-cli --slave命令，可以用来监视其他操作。
 ```
 
 #### 发布订阅功能、GEO（地理信息定位）...
+
+#### 客户端
+
+```
+Java： Jedis，有连接池JedisPool
+Python： redis-py
+输入缓冲区：将客户端发送的命令临时保存，对应client list中的qbuf qbuf-free
+输出缓冲区：保存命令执行的结果返回给客户端，对应client list中的obl oll omem
+```
+
