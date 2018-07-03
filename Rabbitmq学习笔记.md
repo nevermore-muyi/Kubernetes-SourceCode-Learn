@@ -84,3 +84,22 @@ loopback_users = none
 rabbitmqctl cluster_status查看集群状态
 ```
 
+#### 配置文件
+
+```
+RabbitMQ配置文件有三个，均位于/etc/rabbitmq/目录下：
+1.enabled_plugins：设置允许的插件列表，如 [rabbitmq_management,rabbitmq_visualiser]. 
+2.rabbitmq.conf：运行参数
+3.rabbitmq-env.conf：环境变量
+
+数据库为erlang的分布式数据库mnesia
+```
+
+#### 命令
+
+```
+# rabbitmqctl add_user test 123456
+# rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+# rabbitmqctl set_user_tags test administrator
+```
+
