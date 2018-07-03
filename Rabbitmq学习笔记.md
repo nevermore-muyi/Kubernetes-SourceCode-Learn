@@ -1,4 +1,4 @@
-### Rabbitmq学习笔记
+### RabbitMQ学习笔记
 
 #### 基本概念
 
@@ -46,9 +46,41 @@ RabbitMQ集群中，Exchange和Binding是在各个节点都是同步存在的，
 #### 安装
 
 ```
-可以直接去官网下载rpm包安装，预先下载好erlang，并且dashboard界面需要enable plugins
+可以直接去官网下载rpm包安装，预先下载好erlang
+下载erlang：参考 https://github.com/rabbitmq/erlang-rpm
+# cat /etc/yum.repos.d/rabbitmq-erlang.repo
+[rabbitmq-erlang]
+name=rabbitmq-erlang
+baseurl=https://dl.bintray.com/rabbitmq/rpm/erlang/20/el/7
+gpgcheck=1
+gpgkey=https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+repo_gpgcheck=0
+enabled=1
+# yum install erlang -y
+
+#下载rabbitmq
+# wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.6/rabbitmq-server-3.7.6-1.el7.noarch.rpm
+# rpm -ivh rabbitmq-server-3.7.6-1.el7.noarch.rpm
+# systemctl start rabbitmq-server
+
+使用dashboard界面需要enable plugins
 # rabbitmq-plugins enable rabbitmq_management
 默认guest用户只能在localhost下访问，所以需要添加配置
 loopback_users = none
+```
+
+#### 集群安装
+
+```
+1.配置好/etc/hosts
+2.配置环境变量，/etc/rabbitmq/rabbitmq-env.conf中加入 HOSTNAME=主机名
+3.某一台机器的 /var/lib/rabbitmq/.erlang.cookie覆盖其他机器，并且设置为400权限，chown为rabbitmq
+4.启动rabbitmq-server
+5.其他机器依次执行：
+# rabbitmqctl stop_app
+# rabbitmqctl reset
+# rabbitmqctl join_cluster rabbit@基准主机名
+# rabbitmqctl start_app
+rabbitmqctl cluster_status查看集群状态
 ```
 
