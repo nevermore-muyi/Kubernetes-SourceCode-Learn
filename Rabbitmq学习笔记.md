@@ -43,3 +43,12 @@ ps：当一个Queue被多个消费者订阅时，消息只会被一个消费者�
 RabbitMQ集群中，Exchange和Binding是在各个节点都是同步存在的，但是Queue只在声明它的节点存在，所以需要镜像队列的存在。
 ```
 
+#### 安装
+
+```
+可以直接去官网下载rpm包安装，预先下载好erlang，并且dashboard界面需要enable plugins
+# rabbitmq-plugins enable rabbitmq_management
+默认guest用户只能在localhost下访问，所以需要添加配置
+loopback_users = none
+```
+
