@@ -103,3 +103,17 @@ RabbitMQ配置文件有三个，均位于/etc/rabbitmq/目录下：
 # rabbitmqctl set_user_tags test administrator
 ```
 
+#### 优势
+
+```
+1.解耦
+2.异步
+3.削峰
+```
+
+#### 对比
+
+```
+RabbitMQ在可靠性上超过Kafka，性能上超过ActiveMQ，支持的语言丰富，成熟度比较高，社区较活跃，Erlang并发性强。
+```
+
