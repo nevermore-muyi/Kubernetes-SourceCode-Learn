@@ -14,9 +14,16 @@ MongoDB有三种集群模式：
 2.副本集模式：备用节点会同步主节点数据，并且主节点失效后备用节点会有选主操作；
 3.分片模式：每个分片数据不一样（类似于Redis的槽），可以设置分片为副本集模式（与Redis的集群方式类似）
 
+副本集模式：
+备份节点不能执行写操作；
+默认情况下，备份节点也不能读，需要设置setSlaveOK之后才可以读;
+每个节点上配置，主要保证replSetName名称一致，然后通过config执行rs.initiate(config)生成一个副本集
+
 分片模式有三种节点：
-1.mongos：路由节点，接受外部请求，路由到相应的分片；
-2.config：配置节点，保存分片信息，供mongos启动读取，副本集；
-3.shard： 分片节点，保存最终的数据，副本集。
+1.mongos：路由节点，接受外部请求，路由到相应的分片，每个节点之间没有关联，指定sharding.configDB；
+2.config：配置节点，保存分片信息，供mongos启动读取，只能有一个副本集，指定sharding.clusterRole为configsvr；
+3.shard： 分片节点，保存最终的数据，多个副本集对应多个shard，指定sharding.clusterRole为shardsvr。
 ```
+
+
 
