@@ -49,3 +49,11 @@ MongoDB有三种集群模式：
 不包含片健，则为分散-聚集查询，mongos将查询分散到所有分片，然后收集查询结果。
 ```
 
+#### 停止MongoDB
+
+```
+1.Systemctl stop mongod
+2.mongod ... --shutdown
+3.kill -2 ...
+```
+
