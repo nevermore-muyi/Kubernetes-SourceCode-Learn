@@ -57,3 +57,31 @@ MongoDB有三种集群模式：
 3.kill -2 ...
 ```
 
+#### 认证搭建
+
+```
+1.先无认证正常启动，然后添加用户，赋予相应的权限
+# use admin
+# db.createUser(
+  {
+    user: "adminUser",
+    pwd: "adminPass",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+ )
+2.关闭数据库，生成认证文件
+# openssl rand -base64 741 > /data/mongokey
+# chmod 600 /data/mongokey
+3.认证文件分发到各个节点相同的目录下
+4.修改conf文件，增加认证文件
+security:
+  keyFile: "/data/mongokey"
+  clusterAuthMode: "keyFile"
+5.保存启动，登录
+方式一： mongo --port 27017 -u "adminUser" -p "adminPass" --authenticationDatabase "admin"
+方式二： 
+# mongo --port 27017；
+# use admin
+# db.auth('adminUser','adminPass')
+```
+
