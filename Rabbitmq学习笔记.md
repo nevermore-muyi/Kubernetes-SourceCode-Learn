@@ -5,6 +5,7 @@
 ```
 Exchange：生产者将消息放入Exchange中；
 Queue：存储消息，消费者从Queue取走消息；
+Routing：发送者和Exchange之间的一种绑定关系；
 Binding：Exchange和Queue之间的一种绑定关系；
 Broker：RabbitMQ服务端程序，包含Exchange和Queue；
 Virtual Host：类似于命名空间，主要对权限控制。
