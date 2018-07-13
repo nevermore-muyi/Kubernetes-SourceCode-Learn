@@ -19,6 +19,16 @@ Flannel作为overlay网络，是最早和kubernetes配合使用的。网络模�
 4.--ip-masp主要用来隐藏源地址，如果不指定的话，src是flannel.1的网卡地址；指定的话，地址为实际的pod地址，可以通过tcpdump -i cni0 icmp -w ./target.cap 去抓cni0的网卡信息包。
 ```
 
+### 网络流程
+
+```
+主要有vxlan和host-gw的方式
+
+对于vxlan，veth-->cni0-->routing-->flannel.1+flanned(封包)-->eth0-->flanneld+flannel.1(解包)-->routing-->cni0-->veth；
+对于host-gw，veth-->cni0-->routing-->eth0-->routing-->cni0-->veth；
+就我个人理解，host-gw要求是L2网络，因为网关是用来连接两个不同的网络的，如果以一台机器的地址做网关，必须要保证机器之间可以直接通信，所以要求L2层网络。
+```
+
 
 
 ### Calico
@@ -44,6 +54,7 @@ https://docs.projectcalico.org/v2.6/reference/calicoctl/setup/kubernetes
 ```
 1.Flannel的host-gw要求主机必须要同一个子网下，和calico的bgp模式类似，只不过calico可以通过bgp去实现；
 2.Flannel的vxlan模式只是部分vxlan，本质和udp模式区别不大，因为转发换成了内核的vxlan，而udp使用的是proxy，性能上，肯定内核的更好；
-3.Calico的IPIP模式也是需要接包封包的，所以性能上也比较差，使用了tunnel去打通了网络。
+3.Calico的IPIP模式也是需要接包封包的，所以性能上也比较差，使用了tunnel去打通了网络；
+4.按照我的理解，calico发送的目的地址不做转换，需要路由器去做路由选择，所以直接是三层转发；但是flannel目的地址明确处理过，不会经过三层转发，只是在二层之上套用了一层封包，对于flannel的host-gw模式来说，
 ```
 
