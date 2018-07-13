@@ -24,7 +24,8 @@ Flannel作为overlay网络，是最早和kubernetes配合使用的。网络模�
 ### Calico
 
 ```
-Calico是一个纯三层的路由协议，与flannel相比，减少了封包解包，所以速率会快不少。Calico主要的网络模式有BGP和IPIP，原则上，效率为： flannel(host-gw) > calico(bgp) > flannel(vxlan) ~= calico(ipip) > flannel(udp)。
+Calico是一个纯三层的路由协议，与flannel相比，减少了封包解包（只针对于BGP模式），所以速率会快不少。Calico主要的网络模式有BGP和IPIP，原则上，效率为： flannel(host-gw) > calico(bgp) > flannel(vxlan) ~= calico(ipip) > flannel(udp)。
+Calico IPIP模式依旧会有封包解包，所以性能比较低一些。
 ```
 
 ### Calico使用
@@ -36,5 +37,13 @@ Calico可以在Kubernetes上使用Network Policy，流量隔离基于iptables实
 Calico以DaemonSet部署的时候，还是用了Confd去对配置进行管理。
 Calicoctl工具配置可以通过etcd，或者通过kubernetes，路径如下：
 https://docs.projectcalico.org/v2.6/reference/calicoctl/setup/kubernetes
+```
+
+### 总结
+
+```
+1.Flannel的host-gw要求主机必须要同一个子网下，和calico的bgp模式类似，只不过calico可以通过bgp去实现；
+2.Flannel的vxlan模式只是部分vxlan，本质和udp模式区别不大，因为转发换成了内核的vxlan，而udp使用的是proxy，性能上，肯定内核的更好；
+3.Calico的IPIP模式也是需要接包封包的，所以性能上也比较差，使用了tunnel去打通了网络。
 ```
 
