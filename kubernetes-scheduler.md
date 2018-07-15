@@ -510,6 +510,17 @@ func podFitsOnNode(
 预选和优选之后，获取到最佳调度Node，调用assumedPod方法，将Node和Pod信息先缓存起来，然后起新的协程将Node和Pod信息Binding，写到etcd中去，当然工作还是apiserver来做。
 ```
 
+### 理解
+
+```
+1.Node Pod Cache Binding
+2.NodeSelector
+3.NodeAffinity PodAffinity
+4.Taint Toleration
+4.Priority Preemption
+5.DaemonSet是由DaemonSet Controller控制的，之后会改成Default Scheduler调度
+```
+
 
 
 ## 参考文档
