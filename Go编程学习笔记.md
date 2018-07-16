@@ -10,5 +10,6 @@
 5.chan<- int 表示只能发送数据，<-chan int表示只能接收；
 6.select满足多种情况时，随机选择一个；
 7.string为空使用s==""判断；
+8.Go Test时，Test函数是以testing.T传参数的，函数名必须是Test前缀；Benchmark是测试性能的，函数名必须是Benchmark前缀，参数为testing.B；
 ```
 
