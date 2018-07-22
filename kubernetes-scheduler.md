@@ -137,7 +137,8 @@ checkNode内调用podFitsOnNode函数匹配是否满足预选要求。
 ### 7. 选举
 
 ```
-
+选举的主要过程就是去抢占获取到endpoint为kube-scheduler的实例，哪个kube-scheduler获取到了就是leader，通过加锁的方式进行leader election；当前拿到锁的无法工作时，别的实例会拿到锁，变为新的leader。
+成为leader的scheduler会去执行整个调度过程，而没有获取到的会一直在等待锁的释放，直到自己成为leader的时候才去执行调度过程，这样就可以保证虽然有多个实例，但是同时只会有一个生效，只要一个有问题，锁就会被其他的实例拿到成为leader。
 ```
 
 ### 8. 理解
