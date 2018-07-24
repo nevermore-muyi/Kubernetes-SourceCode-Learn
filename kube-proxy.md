@@ -25,10 +25,17 @@ NewProxyServer中主要有以下操作：
 3.启动ResourceContainer，主要对资源进行设置，通过cgroups控制；
 4.事件广播；
 5.HealthzServer；
-6.MetricsServer
+6.MetricsServer；
 7.Conntrack，设置一些网络连接参数；
-8.informer（service、endpoint）
-9.service和endpoint监听与回调配置，然后启动
+8.informer（service、endpoint）；
+9.service和endpoint监听与回调配置，然后启动；
 10.无限循环...
+11.定时器proxier.syncProxyRules，定时从serviceMap和endpointsMap获取数据，然后全量更新iptables表
+```
+
+### 使用
+
+```
+可以使用 iptables -t XXX -S XXX 查看数据流向。
 ```
 
