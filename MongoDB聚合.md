@@ -22,7 +22,7 @@ db.userEntity.aggregate({$match:{"userName":"name9000"}},{"$project":{"name":"$u
 
 ```
 $group可以将文档按照特定的字段进行分组，需要将选定的字段赋值给"_id"，形如：{$group:{"_id":"$day"}}
-分组之后，可以通过特定的操作符做一些操作
+分组之后，可以通过特定的操作符做一些操作（主要针对于某一个字段有多个不同的值）
 算术操作符： $sum $avg
 极值操作符： $max $min $first $last
 数组操作符： $addToSet(不重复) $push(随意添加)
