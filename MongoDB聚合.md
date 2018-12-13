@@ -3,7 +3,7 @@
 #### 1.$match
 
 ```
-$match类似于SQL中的where，一般建议用在最初查询时，形如：{$match:{"":""}}
+$match类似于SQL中的where，一般建议用在最初查询时，形如：{$match:{"":""}}，与find指定条件查询结果一致
 ```
 
 #### 2.$project
